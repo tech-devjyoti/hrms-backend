@@ -13,8 +13,10 @@ const authenticateUser = (req, res, next) => {
 
     const decodedToken = jwt.verify(
       token,
-      process.env.JWT_SECRET
+      process.env.JWT_SECRET,
     );
+
+    console.log(decodedToken,"DDDDDDDDDDDDDDDDDDDDDDDD")
 
     req.user = {
       userId: decodedToken.userId,

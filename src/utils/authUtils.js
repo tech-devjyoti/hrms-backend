@@ -1,9 +1,12 @@
 const jwt = require("jsonwebtoken");
 
 const generateAccessToken = (user) => {
+
+  console.log(user,"SSSSSSSSSSSSSSSSSSSSSDDDDDDDDDDDDDDDDDDDDDDD")
   return jwt.sign(
     {
-      userId: user._id,
+       userId:user.userId, 
+       employeeId:user.employeeId,
       organizationId: user.organizationId,
       role: user.role,
     },

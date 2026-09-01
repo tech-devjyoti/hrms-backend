@@ -1,0 +1,15 @@
+const EMPLOYMENT_STATUS = Object.freeze({
+  ACTIVE: "ACTIVE",
+  INACTIVE: "INACTIVE",
+});
+
+const ACCOUNT_STATUS = Object.freeze({
+  ACTIVE: "ACTIVE",
+  SUSPENDED: "SUSPENDED",
+  DEACTIVATED: "DEACTIVATED",
+});
+
+module.exports = {
+  EMPLOYMENT_STATUS,
+  ACCOUNT_STATUS,
+};
