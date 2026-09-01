@@ -9,16 +9,11 @@ const userSchema = new mongoose.Schema(
       index: true,
     },
 
-    firstName: {
-      type: String,
+    employeeId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Employee",
       required: true,
-      trim: true,
-    },
-
-    lastName: {
-      type: String,
-      required: true,
-      trim: true,
+      unique: true,
     },
 
     email: {
@@ -26,33 +21,57 @@ const userSchema = new mongoose.Schema(
       required: true,
       trim: true,
       lowercase: true,
+      maxlength: 254,
     },
 
     password: {
       type: String,
       required: true,
+      select: false,
     },
 
     role: {
       type: String,
+      enum: ["ADMIN", "HR", "MANAGER", "EMPLOYEE"],
       required: true,
-      default: "ADMIN",
-      enum: ["ADMIN"],
     },
 
-    isActive: {
+    accountStatus: {
+      type: String,
+      enum: ["ACTIVE", "SUSPENDED", "DEACTIVATED"],
+      default: "ACTIVE",
+      required: true,
+    },
+    passwordResetToken: {
+      type: String,
+      default: null,
+    },
+
+    passwordResetExpiresAt: {
+      type: Date,
+      default: null,
+    },
+
+    mustChangePassword: {
       type: Boolean,
       default: true,
     },
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 userSchema.index(
-  { organizationId: 1, email: 1 },
-  { unique: true }
+  {
+    organizationId: 1,
+    email: 1,
+  },
+  {
+    unique: true,
+  },
 );
 
-module.exports = mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema);
+
+module.exports = User;

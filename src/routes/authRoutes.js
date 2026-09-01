@@ -5,6 +5,9 @@ const {
   login,
   getMe,
   logout,
+  changePasswordController,
+  forgotPasswordController,
+  resetPasswordController,
 } = require("../controllers/authController");
 
 const { authenticateUser } = require("../middlewares/authMiddleware");
@@ -19,6 +22,16 @@ router.post("/login", asyncHandler(login));
 
 router.get("/me", authenticateUser, asyncHandler(getMe));
 
-router.post("/logout", logout);
+router.post("/logout", asyncHandler(logout));
+
+router.post(
+  "/change-password",
+  authenticateUser,
+  asyncHandler(changePasswordController),
+);
+
+router.post("/forgot-password", asyncHandler(forgotPasswordController));
+
+router.post("/reset-password", asyncHandler(resetPasswordController));
 
 module.exports = router;
